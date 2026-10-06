@@ -45,7 +45,7 @@ export default function StudentMessMenu() {
   return (
     <DashboardLayout title="Mess Menu">
       <Container maxWidth="lg" sx={{ py: 4 }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
+        <Box component="div" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
           <Typography variant="h4" component="h1" sx={{ color: '#2D3748' }}>
             Weekly Mess Menu
           </Typography>
@@ -57,7 +57,7 @@ export default function StudentMessMenu() {
         {error && <Alert severity="error" sx={{ mb: 3 }}>{error}</Alert>}
 
         {loading ? (
-          <Box sx={{ display: 'flex', justifyContent: 'center', py: 4 }}>
+          <Box component="div" sx={{ display: 'flex', justifyContent: 'center', py: 4 }}>
             <CircularProgress />
           </Box>
         ) : (

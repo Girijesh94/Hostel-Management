@@ -1,326 +1,117 @@
-import { useNavigate } from 'react-router-dom';
-import {
-  Box,
-  Button,
-  Container,
-  Typography,
-  Grid,
-  Card,
-  CardContent,
-  Stack,
-} from '@mui/material';
-import {
-  Home as HomeIcon,
-  Security as SecurityIcon,
-  Payment as PaymentIcon,
-  Support as SupportIcon,
-  Room as RoomIcon,
-  Assignment as AssignmentIcon,
-  ArrowForward as ArrowIcon,
-} from '@mui/icons-material';
+import { Component, lazy, Suspense, useEffect, useRef, useState } from 'react';
+import type { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
+import ArrowForward from '@mui/icons-material/ArrowForward';
+import ArrowOutward from '@mui/icons-material/ArrowOutward';
+import BedOutlined from '@mui/icons-material/BedOutlined';
+import SupportAgentOutlined from '@mui/icons-material/SupportAgentOutlined';
+import ReceiptLongOutlined from '@mui/icons-material/ReceiptLongOutlined';
+import RestaurantOutlined from '@mui/icons-material/RestaurantOutlined';
+import './Home.css';
 
-const features = [
-  {
-    icon: <RoomIcon sx={{ fontSize: 32 }} />,
-    title: 'Easy Room Booking',
-    description: 'Browse available rooms, check amenities, and book your preferred accommodation with just a few clicks.',
-  },
-  {
-    icon: <AssignmentIcon sx={{ fontSize: 32 }} />,
-    title: 'Complaint Management',
-    description: 'Raise complaints and track their status in real-time. Get quick responses from hostel management.',
-  },
-  {
-    icon: <PaymentIcon sx={{ fontSize: 32 }} />,
-    title: 'Secure Payments',
-    description: 'Make hassle-free payments for room rent, mess charges, and other expenses through multiple secure options.',
-  },
-  {
-    icon: <HomeIcon sx={{ fontSize: 32 }} />,
-    title: 'Booking Management',
-    description: 'View your booking history, manage room preferences, and handle lease renewals efficiently.',
-  },
-  {
-    icon: <SecurityIcon sx={{ fontSize: 32 }} />,
-    title: '24/7 Security',
-    description: 'Rest assured with round-the-clock security, CCTV surveillance, and controlled access to hostel premises.',
-  },
-  {
-    icon: <SupportIcon sx={{ fontSize: 32 }} />,
-    title: 'Dedicated Support',
-    description: 'Get assistance from hostel wardens and support staff for any queries or concerns.',
-  },
+const ResidenceScene = lazy(() => import('../components/experience/ResidenceScene'));
+const LiquidLogo = lazy(() => import('../components/experience/LiquidLogo'));
+const Atmosphere = lazy(() => import('../components/experience/Atmosphere'));
+const GlassSurface = lazy(() => import('../components/experience/GlassSurface'));
+
+class GraphicsBoundary extends Component<{ children: ReactNode; fallback: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+  static getDerivedStateFromError() { return { failed: true }; }
+  render() { return this.state.failed ? this.props.fallback : this.props.children; }
+}
+
+const spaces = [
+  { name: 'The residence', caption: 'A little space. A lot of possibility.', label: 'Exterior' },
+  { name: 'Your room', caption: 'Space to recharge, study, and make it yours.', label: 'Room' },
+  { name: 'The common room', caption: 'Good conversations start here.', label: 'Lounge' },
 ];
 
 export default function Home() {
-  const navigate = useNavigate();
+  const [space, setSpace] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const [reduced, setReduced] = useState(false);
+  const [webgl, setWebgl] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const stage = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const query = matchMedia('(prefers-reduced-motion: reduce)');
+    const updateMotion = () => setReduced(query.matches);
+    updateMotion();
+    query.addEventListener('change', updateMotion);
+    const probe = document.createElement('canvas');
+    const context = probe.getContext('webgl2');
+    setWebgl(Boolean(context));
+    context?.getExtension('WEBGL_lose_context')?.loseContext();
+    let inView = true;
+    const updateVisibility = () => setVisible(inView && !document.hidden);
+    const observer = new IntersectionObserver(([entry]) => { inView = entry.isIntersecting; updateVisibility(); });
+    if (stage.current) observer.observe(stage.current);
+    document.addEventListener('visibilitychange', updateVisibility);
+    return () => {
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', updateVisibility);
+      query.removeEventListener('change', updateMotion);
+    };
+  }, []);
+
+  const animated = visible && !paused && !reduced;
+  const fallback = <div className="residence-fallback"><img src="/hostel-hero-premium.png" alt="A welcoming hostel room" /><span>Explore your next home</span></div>;
 
   return (
-    <Box sx={{ minHeight: '100vh', overflowX: 'hidden', position: 'relative' }} className="hero-gradient">
-      {/* Decorative Blur Orbs */}
-      <Box sx={{
-        position: 'absolute',
-        top: '-10%',
-        right: '-5%',
-        width: '500px',
-        height: '500px',
-        bgcolor: 'rgba(107, 70, 193, 0.15)',
-        filter: 'blur(100px)',
-        borderRadius: '50%',
-        zIndex: -1,
-      }} />
-      <Box sx={{
-        position: 'absolute',
-        bottom: '10%',
-        left: '-5%',
-        width: '400px',
-        height: '400px',
-        bgcolor: 'rgba(139, 92, 246, 0.1)',
-        filter: 'blur(100px)',
-        borderRadius: '50%',
-        zIndex: -1,
-      }} />
-
-      {/* Navigation Header */}
-      <Container maxWidth="lg" sx={{ pt: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Typography variant="h5" sx={{ fontWeight: 800, color: 'primary.main' }}>
-          HMS.
-        </Typography>
-        <Stack direction="row" spacing={3}>
-          <Button onClick={() => navigate('/signin')} sx={{ color: 'hsl(var(--foreground))', fontWeight: 600, textTransform: 'none' }}>
-            Login
-          </Button>
-          <Button 
-            variant="contained" 
-            onClick={() => navigate('/signup')} 
-            sx={{ 
-              bgcolor: 'primary.main', 
-              borderRadius: '24px', 
-              px: 4,
-              boxShadow: '0 4px 14px 0 rgba(124, 58, 237, 0.39)',
-              textTransform: 'none',
-              '&:hover': {
-                bgcolor: 'primary.dark',
-              }
-            }}
-          >
-            Get Started
-          </Button>
-        </Stack>
-      </Container>
-
-      {/* Hero Section */}
-      <Container maxWidth="lg" sx={{ py: { xs: 8, md: 15 } }}>
-        <Grid container spacing={8} alignItems="center">
-          <Grid item xs={12} md={6} className="animate-fade-in">
-            <Typography
-              variant="h1"
-              sx={{
-                mb: 3,
-                fontSize: { xs: '3rem', md: '4.5rem' },
-                lineHeight: 1.1,
-                color: 'hsl(var(--foreground))',
-              }}
-            >
-              The Next Gen <br />
-              <span className="gradient-text">Hostel Experience.</span>
-            </Typography>
-            <Typography
-              variant="body1"
-              sx={{
-                mb: 6,
-                fontSize: '1.25rem',
-                color: 'text.secondary',
-                maxWidth: '500px',
-                lineHeight: 1.6,
-              }}
-            >
-              Experience seamless booking, instant support, and a vibrant community with our advanced management solution.
-            </Typography>
-            <Box sx={{ display: 'flex', gap: 3, flexWrap: 'wrap' }}>
-              <Button
-                variant="contained"
-                size="large"
-                onClick={() => navigate('/signup')}
-                endIcon={<ArrowIcon />}
-                sx={{
-                  bgcolor: 'primary.main',
-                  color: 'white',
-                  borderRadius: '12px',
-                  px: 5,
-                  py: 2,
-                  fontWeight: 600,
-                  boxShadow: '0 10px 15px -3px rgba(124, 58, 237, 0.3)',
-                  '&:hover': {
-                    bgcolor: 'primary.dark',
-                    transform: 'translateY(-2px)',
-                  },
-                }}
-              >
-                Book Now
-              </Button>
-            </Box>
-          </Grid>
-          <Grid item xs={12} md={6} className="animate-fade-in animate-delay-1">
-            <Box
-              sx={{
-                position: 'relative',
-                '&::before': {
-                  content: '""',
-                  position: 'absolute',
-                  top: '-5%',
-                  right: '-5%',
-                  width: '110%',
-                  height: '110%',
-                  background: 'linear-gradient(135deg, rgba(107, 70, 193, 0.4) 0%, transparent 100%)',
-                  borderRadius: '32px',
-                  filter: 'blur(24px)',
-                  zIndex: -1,
-                }
-              }}
-            >
-              <Box
-                component="img"
-                src="/hostel-hero-premium.png"
-                alt="Modern Hostel Interior"
-                sx={{
-                  width: '100%',
-                  height: 'auto',
-                  borderRadius: '24px',
-                  boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
-                  transform: 'perspective(1000px) rotateY(-5deg)',
-                  transition: 'transform 0.5s ease',
-                  '&:hover': {
-                    transform: 'perspective(1000px) rotateY(0deg)',
-                  }
-                }}
-              />
-            </Box>
-          </Grid>
-        </Grid>
-      </Container>
-
-      {/* Features Heading */}
-      <Box sx={{ bgcolor: 'white', py: 15 }}>
-        <Container maxWidth="lg">
-          <Typography
-            variant="h2"
-            align="center"
-            sx={{ mb: 10, fontSize: { xs: '2.5rem', md: '3.5rem' } }}
-          >
-            Smarter Ways to <span className="gradient-text">Live.</span>
-          </Typography>
-          <Grid container spacing={4}>
-            {features.map((feature, index) => (
-              <Grid item xs={12} md={4} key={index} className={`animate-fade-in animate-delay-${(index % 3) + 1}`}>
-                <Card
-                  sx={{
-                    height: '100%',
-                    borderRadius: '24px',
-                    boxShadow: 'none',
-                    border: '1px solid rgba(0,0,0,0.05)',
-                    p: 2,
-                    transition: 'all 0.4s ease',
-                    '&:hover': {
-                      transform: 'translateY(-12px)',
-                      boxShadow: '0 20px 40px rgba(107, 70, 193, 0.08)',
-                      borderColor: 'rgba(107, 70, 193, 0.2)',
-                    },
-                  }}
-                >
-                  <CardContent sx={{ textAlign: 'left', p: 3 }}>
-                    <Box sx={{ 
-                      width: 60, 
-                      height: 60, 
-                      borderRadius: '16px', 
-                      bgcolor: 'rgba(107, 70, 193, 0.1)', 
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      justifyContent: 'center',
-                      color: 'hsl(var(--primary))',
-                      mb: 4
-                    }}>
-                      {feature.icon}
-                    </Box>
-                    <Typography
-                      variant="h6"
-                      gutterBottom
-                      sx={{ fontWeight: 700, mb: 2 }}
-                    >
-                      {feature.title}
-                    </Typography>
-                    <Typography
-                      variant="body1"
-                      color="text.secondary"
-                      sx={{ opacity: 0.8 }}
-                    >
-                      {feature.description}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </Box>
-
-      {/* CTA Section */}
-      <Box sx={{ py: 15, position: 'relative' }}>
-        <Container maxWidth="md">
-          <Box className="glass"
-            sx={{
-              borderRadius: '40px',
-              p: { xs: 6, md: 10 },
-              textAlign: 'center',
-              border: '1px solid rgba(107, 70, 193, 0.2)',
-              overflow: 'hidden',
-              position: 'relative'
-            }}
-          >
-            <Typography
-              variant="h3"
-              sx={{ fontWeight: 700, mb: 3 }}
-            >
-              Start Your Journey <br />
-              With Us Today.
-            </Typography>
-            <Typography
-              variant="h6"
-              sx={{ mb: 6, color: 'text.secondary', opacity: 0.7 }}
-            >
-              Create your account in minutes and enjoy the best student experience.
-            </Typography>
-            <Button
-              variant="contained"
-              size="large"
-              onClick={() => navigate('/signup')}
-              sx={{
-                bgcolor: 'primary.main',
-                color: 'white',
-                borderRadius: '14px',
-                px: 8,
-                py: 2.5,
-                fontWeight: 600,
-                fontSize: '1.1rem',
-                boxShadow: '0 10px 15px -3px rgba(124, 58, 237, 0.3)',
-                '&:hover': {
-                  bgcolor: 'primary.dark',
-                  transform: 'translateY(-2px)',
-                },
-              }}
-            >
-              Create Free Account
-            </Button>
-          </Box>
-        </Container>
-      </Box>
-
-      {/* Simple Footer */}
-      <Container maxWidth="lg" sx={{ py: 6, borderTop: '1px solid rgba(0,0,0,0.05)', textAlign: 'center' }}>
-        <Typography variant="body2" color="white" align="center" sx={{ opacity: 0.8 }}>
-          © {new Date().getFullYear()} HostelMate. All rights reserved.
-        </Typography>
-      </Container>
-    </Box>
+    <div className="hostel-home">
+      <a className="skip-link" href="#main">Skip to content</a>
+      <header className="home-header">
+        <Link to="/" className="home-brand" aria-label="HostelMate home">
+          <span className="brand-mark"><img src="/hostel-mark.svg" alt="" />{webgl && visible && <GraphicsBoundary fallback={null}><Suspense fallback={null}><LiquidLogo animated={animated} /></Suspense></GraphicsBoundary>}</span>
+          HostelMate<span className="brand-dot">.</span>
+        </Link>
+        <button className="menu-toggle" aria-expanded={menuOpen} aria-controls="home-nav" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? 'Close' : 'Menu'}</button>
+        <nav id="home-nav" className={menuOpen ? 'home-nav is-open' : 'home-nav'} aria-label="Main navigation">
+          <a href="#spaces" onClick={() => setMenuOpen(false)}>The spaces</a>
+          <a href="#living" onClick={() => setMenuOpen(false)}>Life, simplified</a>
+          <a href="#how-it-works" onClick={() => setMenuOpen(false)}>How it works</a>
+        </nav>
+        <Link className="header-login" to="/signin"><span className="resident-word">Resident </span>login <ArrowOutward fontSize="small" /></Link>
+      </header>
+      <main id="main">
+        <section className="home-hero" aria-labelledby="hero-title">
+          <div className="hero-copy">
+            <div className="eyebrow"><span className="status-dot" /> YOUR NEXT CHAPTER STARTS HERE</div>
+            <h1 id="hero-title">More than<br />a room.<br /><span>A place to belong.</span></h1>
+            <p>Find your space. Meet your people. Make yourself at home. Student living, with the everyday taken care of.</p>
+            <div className="hero-actions"><Link className="home-button primary" to="/signup">Find my space <ArrowForward fontSize="small" /></Link><a className="text-link" href="#spaces">Take a look around <span>↗</span></a></div>
+            <div className="hero-note"><span className="note-lines">⌂</span><div><strong>A home for your university years.</strong><span>Rooms, meals, and support. All in one place.</span></div></div>
+          </div>
+          <div ref={stage} className="residence-stage" id="spaces">
+            <div className="stage-grid" aria-hidden="true" />
+            <div className="stage-heading"><span><i /> THE HOSTELMATE EXPERIENCE</span><span className="stage-number">0{space + 1} / 03</span></div>
+            <div className="scene-container" role="img" aria-label={'Interactive architectural illustration: ' + spaces[space].name + '. Drag to rotate.'}>
+              {webgl ? <GraphicsBoundary fallback={fallback}><Suspense fallback={fallback}><ResidenceScene space={space} animated={animated} /></Suspense></GraphicsBoundary> : fallback}
+            </div>
+            <div className="scene-label"><span className="scene-label-dot" /><div><strong>{spaces[space].name}</strong><span>{spaces[space].caption}</span></div></div>
+            <div className="scene-controls">
+              {webgl && visible && <Suspense fallback={null}><GlassSurface /></Suspense>}
+              <div className="space-tabs" role="group" aria-label="Explore the spaces">{spaces.map((item, index) => <button key={item.label} aria-pressed={index === space} onClick={() => setSpace(index)}>{item.label}</button>)}</div>
+              <button className="motion-toggle" onClick={() => setPaused(!paused)} aria-label={paused ? 'Resume automatic rotation' : 'Pause automatic rotation'} disabled={reduced}>{paused || reduced ? '▷' : 'Ⅱ'}</button>
+            </div>
+            <div className="stage-footer"><span>CONCEPT RESIDENCE · 3D EXPLORER</span><span>↔ DRAG TO ROTATE</span></div>
+          </div>
+        </section>
+        <div className="amenity-strip" aria-label="Living essentials"><span>YOUR EVERYDAY,<br /><strong>UPGRADED.</strong></span><div><span>⌁</span> Room bookings</div><div><span>◎</span> Warden support</div><div><span>▤</span> Payment history</div><div><span>♧</span> Mess menus</div></div>
+        <section className="living-section" id="living" aria-labelledby="living-title">
+          <div className="section-heading"><div><span className="eyebrow">LESS ADMIN. MORE LIVING.</span><h2 id="living-title">The good part of student life.<br /><em>Without the extra tabs.</em></h2></div><p>Everything you need to settle in,<br />stay organised, and get on with your day.</p></div>
+          <div className="living-grid">
+            <Link to="/signin" className="living-feature room-feature"><span className="feature-top"><BedOutlined /><ArrowOutward /></span><div className="room-illustration" aria-hidden="true"><div className="mini-window" /><div className="mini-bed"><span /><span /></div><div className="mini-rug" /></div><span className="feature-index">01 / YOUR SPACE</span><h3>A room that fits your life.</h3><p>Browse rooms, see the amenities, and manage your bookings from your resident dashboard.</p><span className="feature-link">Explore room bookings <ArrowForward fontSize="small" /></span></Link>
+            <Link to="/signin" className="living-feature support-feature"><span className="feature-top"><SupportAgentOutlined /><ArrowOutward /></span><div className="support-illustration" aria-hidden="true"><span className="message-bubble">Need a hand? <span>↗</span></span><span className="message-reply">Your warden is a message away.</span></div><span className="feature-index">02 / YOUR SUPPORT</span><h3>Small issues. Simple solutions.</h3><p>Raise a complaint, send a request, and keep track of the response. No chasing things up.</p><span className="feature-link">Meet your resident dashboard <ArrowForward fontSize="small" /></span></Link>
+            <div className="living-small-stack"><Link to="/signin" className="living-feature compact-feature"><span className="feature-top"><ReceiptLongOutlined /><ArrowOutward /></span><span className="feature-index">03 / YOUR PEACE OF MIND</span><h3>Keep payments in view.</h3><p>Your payment history, organised in one place.</p></Link><Link to="/signin" className="living-feature compact-feature meals-feature"><span className="feature-top"><RestaurantOutlined /><ArrowOutward /></span><span className="feature-index">04 / YOUR EVERYDAY</span><h3>What's on the menu?</h3><p>Check your mess menu before mealtime.</p></Link></div>
+          </div>
+        </section>
+        <section className="steps-section" id="how-it-works"><div><span className="eyebrow">MAKE YOURSELF AT HOME</span><h2>New beginnings.<br />Three simple steps.</h2></div><ol><li><span>01</span><div><h3>Create your account</h3><p>A few details, and you're ready to explore.</p></div></li><li><span>02</span><div><h3>Find your room</h3><p>Sign in to browse rooms and book your space.</p></div></li><li><span>03</span><div><h3>Settle into your rhythm</h3><p>Manage your stay from your resident dashboard.</p></div></li></ol></section>
+        <section className="home-cta"><div className="cta-atmosphere" aria-hidden="true">{webgl && <GraphicsBoundary fallback={null}><Suspense fallback={null}><Atmosphere /></Suspense></GraphicsBoundary>}</div><span className="eyebrow">A LITTLE ROOM FOR YOUR NEXT BIG THING</span><h2>Your next chapter<br />has a home.</h2><Link className="home-button light" to="/signup">Let's get you settled <ArrowForward fontSize="small" /></Link><p>Already part of the community? <Link to="/signin">Sign in ↗</Link></p></section>
+      </main>
+      <footer className="home-footer"><Link className="footer-brand" to="/">HostelMate.</Link><span>Made for the way you live.</span><span>© {new Date().getFullYear()} HostelMate</span><a href="#main">Back to top ↑</a></footer>
+    </div>
   );
 }

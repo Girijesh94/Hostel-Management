@@ -74,7 +74,7 @@ export default function WardenApprovals() {
   return (
     <DashboardLayout title="Approvals">
       <Container maxWidth="lg" sx={{ py: 4 }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
+        <Box component="div" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
           <Typography variant="h4" component="h1" sx={{ color: '#2D3748' }}>
             Approvals
           </Typography>
@@ -83,7 +83,7 @@ export default function WardenApprovals() {
           </Button>
         </Box>
 
-        <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
+        <Box component="div" sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
           <Tabs value={tabIndex} onChange={(_, nv) => setTabIndex(nv)}>
             <Tab label="Visitors" />
             <Tab label="Leaves" />
@@ -115,7 +115,7 @@ export default function WardenApprovals() {
                     </TableCell>
                     <TableCell>
                       {v.status === 'Pending' && (
-                        <Box sx={{ display: 'flex', gap: 1 }}>
+                        <Box component="div" sx={{ display: 'flex', gap: 1 }}>
                           <Button size="small" variant="contained" color="success" onClick={() => handleUpdateVisitor(v.visitor_id, 'Approved')}>Approve</Button>
                           <Button size="small" variant="contained" color="error" onClick={() => handleUpdateVisitor(v.visitor_id, 'Declined')}>Decline</Button>
                         </Box>
@@ -158,7 +158,7 @@ export default function WardenApprovals() {
                     </TableCell>
                     <TableCell>
                       {l.status === 'Pending' && (
-                        <Box sx={{ display: 'flex', gap: 1 }}>
+                        <Box component="div" sx={{ display: 'flex', gap: 1 }}>
                           <Button size="small" variant="contained" color="success" onClick={() => handleUpdateLeave(l.leave_id, 'Approved')}>Approve</Button>
                           <Button size="small" variant="contained" color="error" onClick={() => handleUpdateLeave(l.leave_id, 'Declined')}>Decline</Button>
                         </Box>

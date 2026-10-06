@@ -103,7 +103,7 @@ export default function DashboardLayout({ children, title }: DashboardLayoutProp
   );
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box component="div" sx={{ display: 'flex' }}>
       <AppBar
         position="fixed"
         sx={{
@@ -181,4 +181,4 @@ export default function DashboardLayout({ children, title }: DashboardLayoutProp
       </Box>
     </Box>
   );
-} 
+}

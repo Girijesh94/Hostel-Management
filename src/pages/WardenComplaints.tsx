@@ -137,7 +137,7 @@ export default function WardenComplaints() {
 
   return (
     <DashboardLayout title="Complaints Management">
-      <Box sx={{ p: 3 }}>
+      <Box component="div" sx={{ p: 3 }}>
         {error && (
           <Alert severity="error" sx={{ mb: 3 }} onClose={() => setError(null)}>
             {error}
@@ -151,7 +151,7 @@ export default function WardenComplaints() {
             </Typography>
             
             {loading && !complaints.length ? (
-              <Box sx={{ display: 'flex', justifyContent: 'center', p: 4 }}>
+              <Box component="div" sx={{ display: 'flex', justifyContent: 'center', p: 4 }}>
                 <CircularProgress />
               </Box>
             ) : (
@@ -199,7 +199,7 @@ export default function WardenComplaints() {
                           </TableCell>
                           <TableCell>
                             {complaint.complaint_status?.toLowerCase() === 'pending' && (
-                              <Box sx={{ display: 'flex', gap: 1 }}>
+                              <Box component="div" sx={{ display: 'flex', gap: 1 }}>
                                 <Button
                                   variant="contained"
                                   size="small"

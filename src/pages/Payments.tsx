@@ -111,11 +111,11 @@ export default function Payments() {
         {error && <Alert severity="error" sx={{ mb: 2 }} onClose={() => setError(null)}>{error}</Alert>}
         {success && <Alert severity="success" sx={{ mb: 2 }} onClose={() => setSuccess(null)}>{success}</Alert>}
 
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
+        <Box component="div" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
           <Typography variant="h4" component="h1" sx={{ color: '#2D3748' }}>
             Payment History
           </Typography>
-          <Box sx={{ display: 'flex', gap: 2 }}>
+          <Box component="div" sx={{ display: 'flex', gap: 2 }}>
             <Button
               variant="contained"
               startIcon={<AddIcon />}
@@ -135,10 +135,10 @@ export default function Payments() {
         </Box>
 
         {/* Summary Cards */}
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)' }, gap: 3, mb: 4 }}>
+        <Box component="div" sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)' }, gap: 3, mb: 4 }}>
           <Card sx={{ background: 'linear-gradient(135deg, #6B46C1 0%, #805AD5 100%)', color: 'white' }}>
             <CardContent>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1 }}>
+              <Box component="div" sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1 }}>
                 <AttachMoneyIcon />
                 <Typography variant="h6">Total Paid</Typography>
               </Box>
@@ -153,7 +153,7 @@ export default function Payments() {
 
           <Card sx={{ background: 'linear-gradient(135deg, #2D3748 0%, #4A5568 100%)', color: 'white' }}>
             <CardContent>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1 }}>
+              <Box component="div" sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1 }}>
                 <TrendingUpIcon />
                 <Typography variant="h6">Latest Payment</Typography>
               </Box>
@@ -231,7 +231,7 @@ export default function Payments() {
         <Dialog open={openDialog} onClose={() => setOpenDialog(false)} maxWidth="xs" fullWidth>
           <DialogTitle>Make a Payment</DialogTitle>
           <DialogContent>
-            <Box sx={{ display: 'grid', gap: 2, pt: 2 }}>
+            <Box component="div" sx={{ display: 'grid', gap: 2, pt: 2 }}>
               <TextField
                 fullWidth
                 label="Amount (₹)"

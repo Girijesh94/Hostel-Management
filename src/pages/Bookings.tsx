@@ -96,7 +96,7 @@ export default function Bookings() {
           </Alert>
         )}
 
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
+        <Box component="div" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
           <Typography variant="h4" component="h1" sx={{ color: '#2D3748' }}>
             My Bookings
           </Typography>
@@ -128,7 +128,7 @@ export default function Bookings() {
                       <TableCell>
                         <Stack direction="row" spacing={1} alignItems="center">
                           <RoomIcon color="primary" />
-                          <Box>
+                          <Box component="div">
                             <Typography variant="body1">
                               Room {booking.room_no}
                             </Typography>
@@ -171,4 +171,4 @@ export default function Bookings() {
       </Container>
     </DashboardLayout>
   );
-} 
+}

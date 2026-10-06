@@ -87,7 +87,7 @@ export default function WardenDashboard() {
 
   return (
     <DashboardLayout title="Warden Dashboard">
-      <Box sx={{ display: 'grid', gap: 3 }}>
+      <Box component="div" sx={{ display: 'grid', gap: 3 }}>
         {/* Welcome Section */}
         <Card sx={{ bgcolor: '#6B46C1', color: 'white' }}>
           <CardContent>
@@ -101,15 +101,15 @@ export default function WardenDashboard() {
         </Card>
 
         {/* Main Stats Section */}
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' }, gap: 3 }}>
+        <Box component="div" sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' }, gap: 3 }}>
           {/* Room Occupancy Section */}
           <Card>
             <CardContent>
               <Typography variant="h5" gutterBottom>
                 Room Occupancy
               </Typography>
-              <Box sx={{ mt: 3 }}>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
+              <Box component="div" sx={{ mt: 3 }}>
+                <Box component="div" sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
                   <Typography variant="body2" color="text.secondary">
                     Occupancy Rate
                   </Typography>
@@ -129,7 +129,7 @@ export default function WardenDashboard() {
                     },
                   }}
                 />
-                <Box sx={{ mt: 2, display: 'flex', justifyContent: 'space-between' }}>
+                <Box component="div" sx={{ mt: 2, display: 'flex', justifyContent: 'space-between' }}>
                   <Typography variant="body2" color="text.secondary">
                     Occupied: {occupiedRooms}
                   </Typography>
@@ -169,8 +169,8 @@ export default function WardenDashboard() {
                     }}
                   >
                     <CardContent>
-                      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                        <Box>
+                      <Box component="div" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                        <Box component="div">
                           <Typography variant="subtitle1" gutterBottom>
                             {complaint.complaint_type}
                           </Typography>
@@ -185,7 +185,7 @@ export default function WardenDashboard() {
                           sx={{ textTransform: 'capitalize' }}
                         />
                       </Box>
-                      <Box sx={{ mt: 2, display: 'flex', gap: 1 }}>
+                      <Box component="div" sx={{ mt: 2, display: 'flex', gap: 1 }}>
                         {complaint.complaint_status?.toLowerCase() === 'pending' && (
                           <Button
                             variant="contained"
@@ -237,7 +237,7 @@ export default function WardenDashboard() {
         </Box>
 
         {/* Quick Actions */}
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' }, gap: 3 }}>
+        <Box component="div" sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' }, gap: 3 }}>
           <Card>
             <CardContent>
               <Typography variant="h6" gutterBottom>
@@ -316,4 +316,4 @@ export default function WardenDashboard() {
       </Dialog>
     </DashboardLayout>
   );
-} 
+}

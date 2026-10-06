@@ -87,7 +87,7 @@ export default function StudentRequests() {
   return (
     <DashboardLayout title="My Requests">
       <Container maxWidth="lg" sx={{ py: 4 }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
+        <Box component="div" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
           <Typography variant="h4" component="h1" sx={{ color: '#2D3748' }}>
             My Requests
           </Typography>
@@ -96,7 +96,7 @@ export default function StudentRequests() {
           </Button>
         </Box>
 
-        <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
+        <Box component="div" sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
           <Tabs value={tabIndex} onChange={(_, nv) => setTabIndex(nv)}>
             <Tab label="Visitors" />
             <Tab label="Leaves" />
@@ -104,7 +104,7 @@ export default function StudentRequests() {
         </Box>
 
         {tabIndex === 0 && (
-          <Box>
+          <Box component="div">
             <Button variant="contained" color="primary" onClick={() => setOpenVisitorDialog(true)} sx={{ mb: 2 }}>
               Apply for Visitor
             </Button>
@@ -143,7 +143,7 @@ export default function StudentRequests() {
         )}
 
         {tabIndex === 1 && (
-          <Box>
+          <Box component="div">
             <Button variant="contained" color="primary" onClick={() => setOpenLeaveDialog(true)} sx={{ mb: 2 }}>
               Apply for Leave
             </Button>

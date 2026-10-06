@@ -109,7 +109,7 @@ export default function Complaints() {
   return (
     <DashboardLayout title="My Complaints">
       <Container maxWidth="lg" sx={{ py: 4 }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
+        <Box component="div" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
           <Typography variant="h4" component="h1" sx={{ color: '#2D3748' }}>
             My Complaints
           </Typography>
@@ -145,7 +145,7 @@ export default function Complaints() {
             <Grid item xs={12} key={complaint.complaint_id}>
               <Card sx={{ height: '100%' }}>
                 <CardContent>
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
+                  <Box component="div" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
                     <Typography variant="h6" component="h2" sx={{ color: '#2D3748' }}>
                       {complaint.complaint_type}
                     </Typography>
@@ -176,7 +176,7 @@ export default function Complaints() {
         <Dialog open={openDialog} onClose={() => setOpenDialog(false)} maxWidth="sm" fullWidth>
           <DialogTitle>Submit New Complaint</DialogTitle>
           <DialogContent>
-            <Box sx={{ display: 'grid', gap: 2, pt: 2 }}>
+            <Box component="div" sx={{ display: 'grid', gap: 2, pt: 2 }}>
               <FormControl fullWidth required>
                 <InputLabel>Complaint Type</InputLabel>
                 <Select
@@ -221,4 +221,4 @@ export default function Complaints() {
       </Container>
     </DashboardLayout>
   );
-} 
+}

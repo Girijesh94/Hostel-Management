@@ -107,7 +107,7 @@ export default function StudentDashboard() {
           </Alert>
         )}
 
-        <Box sx={{ display: 'grid', gap: 4 }}>
+        <Box component="div" sx={{ display: 'grid', gap: 4 }}>
           {/* Welcome Section */}
           <Card>
             <CardContent>
@@ -121,7 +121,7 @@ export default function StudentDashboard() {
           </Card>
 
           {/* Quick Actions */}
-          <Box sx={{ 
+          <Box component="div" sx={{
             display: 'grid', 
             gridTemplateColumns: { 
               xs: '1fr', 
@@ -131,7 +131,7 @@ export default function StudentDashboard() {
           }}>
             <Card>
               <CardContent>
-                <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                <Box component="div" sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                   <AssignmentIcon sx={{ fontSize: 40, color: '#6B46C1', mr: 2 }} />
                   <Typography variant="h6" component="h2" sx={{ color: '#2D3748' }}>
                     Complaints
@@ -154,7 +154,7 @@ export default function StudentDashboard() {
 
             <Card>
               <CardContent>
-                <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                <Box component="div" sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                   <PaymentIcon sx={{ fontSize: 40, color: '#6B46C1', mr: 2 }} />
                   <Typography variant="h6" component="h2" sx={{ color: '#2D3748' }}>
                     Payments
@@ -177,7 +177,7 @@ export default function StudentDashboard() {
 
             <Card>
               <CardContent>
-                <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                <Box component="div" sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                   <RestaurantMenuIcon sx={{ fontSize: 40, color: '#6B46C1', mr: 2 }} />
                   <Typography variant="h6" component="h2" sx={{ color: '#2D3748' }}>
                     Mess Menu
@@ -200,7 +200,7 @@ export default function StudentDashboard() {
 
             <Card>
               <CardContent>
-                <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                <Box component="div" sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                   <CardTravelIcon sx={{ fontSize: 40, color: '#6B46C1', mr: 2 }} />
                   <Typography variant="h6" component="h2" sx={{ color: '#2D3748' }}>
                     My Requests
@@ -225,7 +225,7 @@ export default function StudentDashboard() {
           {/* Available Rooms Section */}
           <Card>
             <CardContent>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+              <Box component="div" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
                 <Typography variant="h5" component="h2">
                   Available Rooms
                 </Typography>
@@ -238,7 +238,7 @@ export default function StudentDashboard() {
                   View All Rooms
                 </Button>
               </Box>
-              <Box sx={{ 
+              <Box component="div" sx={{
                 display: 'grid', 
                 gridTemplateColumns: { 
                   xs: '1fr', 
@@ -262,7 +262,7 @@ export default function StudentDashboard() {
                   >
                     <CardContent>
                       <Stack spacing={2}>
-                        <Box>
+                        <Box component="div">
                           <Typography variant="h6" gutterBottom>
                             Room {room.room_no}
                           </Typography>
@@ -334,4 +334,4 @@ export default function StudentDashboard() {
       </Container>
     </DashboardLayout>
   );
-} 
+}

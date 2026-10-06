@@ -49,7 +49,7 @@ export default function SignIn() {
   };
 
   return (
-    <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', bgcolor: '#F7FAFC' }}>
+    <Box component="div" sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', bgcolor: '#F7FAFC' }}>
       <Container maxWidth="sm">
         <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
           <Typography variant="h4" component="h1" gutterBottom align="center" sx={{ color: '#6B46C1' }}>
@@ -72,7 +72,7 @@ export default function SignIn() {
           )}
 
           <form onSubmit={handleSubmit}>
-            <Box sx={{ display: 'grid', gap: 2 }}>
+            <Box component="div" sx={{ display: 'grid', gap: 2 }}>
               <FormControl fullWidth required>
                 <InputLabel>Role</InputLabel>
                 <Select
@@ -133,4 +133,4 @@ export default function SignIn() {
       </Container>
     </Box>
   );
-} 
+}

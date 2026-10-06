@@ -95,7 +95,7 @@ export default function Rooms() {
   return (
     <DashboardLayout title="Available Rooms">
       <Container maxWidth="lg" sx={{ py: 4 }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
+        <Box component="div" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
           <Typography variant="h4" component="h1" sx={{ color: '#2D3748' }}>
             Available Rooms
           </Typography>
@@ -109,7 +109,7 @@ export default function Rooms() {
         </Box>
 
         {/* Filters */}
-        <Box sx={{ display: 'flex', gap: 2, mb: 4, flexWrap: 'wrap' }}>
+        <Box component="div" sx={{ display: 'flex', gap: 2, mb: 4, flexWrap: 'wrap' }}>
           <FormControl sx={{ minWidth: 150 }}>
             <InputLabel>Capacity</InputLabel>
             <Select
@@ -157,14 +157,14 @@ export default function Rooms() {
         )}
 
         {loading ? (
-          <Box sx={{ display: 'flex', justifyContent: 'center', py: 4 }}>
+          <Box component="div" sx={{ display: 'flex', justifyContent: 'center', py: 4 }}>
             <CircularProgress />
             <Typography sx={{ ml: 2 }}>Loading rooms...</Typography>
           </Box>
         ) : displayedRooms.length === 0 ? (
           <Alert severity="info">No available rooms found</Alert>
         ) : (
-          <Box sx={{ 
+          <Box component="div" sx={{
             display: 'grid', 
             gridTemplateColumns: { 
               xs: '1fr', 
@@ -188,7 +188,7 @@ export default function Rooms() {
               >
                 <CardContent>
                   <Stack spacing={2}>
-                    <Box>
+                    <Box component="div">
                       <Typography variant="h6" gutterBottom>
                         {room.hostel?.hostel_name || 'Unknown Hostel'}
                       </Typography>
@@ -243,7 +243,7 @@ export default function Rooms() {
               </DialogTitle>
               <DialogContent>
                 <Stack spacing={2} sx={{ mt: 2 }}>
-                  <Box>
+                  <Box component="div">
                     <Typography variant="subtitle2" color="text.secondary">
                       Hostel
                     </Typography>
@@ -251,13 +251,13 @@ export default function Rooms() {
                       {selectedRoom.hostel?.hostel_name || 'Not specified'}
                     </Typography>
                   </Box>
-                  <Box>
+                  <Box component="div">
                     <Typography variant="subtitle2" color="text.secondary">
                       Room Type
                     </Typography>
                     <Typography variant="body1">{selectedRoom.room_type}</Typography>
                   </Box>
-                  <Box>
+                  <Box component="div">
                     <Typography variant="subtitle2" color="text.secondary">
                       Amenities
                     </Typography>
@@ -266,19 +266,19 @@ export default function Rooms() {
                       {selectedRoom.has_attached_bathroom ? 'Attached Bathroom' : 'Shared Bathroom'}
                     </Typography>
                   </Box>
-                  <Box>
+                  <Box component="div">
                     <Typography variant="subtitle2" color="text.secondary">
                       Capacity
                     </Typography>
                     <Typography variant="body1">{selectedRoom.room_capacity} students</Typography>
                   </Box>
-                  <Box>
+                  <Box component="div">
                     <Typography variant="subtitle2" color="text.secondary">
                       Current Vacancies
                     </Typography>
                     <Typography variant="body1">{selectedRoom.vacancies}</Typography>
                   </Box>
-                  <Box>
+                  <Box component="div">
                     <Typography variant="subtitle2" color="text.secondary">
                       Yearly Fee
                     </Typography>

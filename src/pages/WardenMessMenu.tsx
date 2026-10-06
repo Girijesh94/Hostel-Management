@@ -102,11 +102,11 @@ export default function WardenMessMenu() {
   return (
     <DashboardLayout title="Manage Mess Menu">
       <Container maxWidth="lg" sx={{ py: 4 }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
+        <Box component="div" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
           <Typography variant="h4" component="h1" sx={{ color: '#2D3748' }}>
             Manage Mess Menu
           </Typography>
-          <Box>
+          <Box component="div">
             <Button variant="contained" color="primary" onClick={handleAdd} sx={{ mr: 2 }}>
               Add Menu Item
             </Button>
@@ -119,7 +119,7 @@ export default function WardenMessMenu() {
         {error && <Alert severity="error" sx={{ mb: 3 }}>{error}</Alert>}
 
         {loading ? (
-          <Box sx={{ display: 'flex', justifyContent: 'center', py: 4 }}>
+          <Box component="div" sx={{ display: 'flex', justifyContent: 'center', py: 4 }}>
             <CircularProgress />
           </Box>
         ) : (
@@ -156,7 +156,7 @@ export default function WardenMessMenu() {
         <Dialog open={openDialog} onClose={() => setOpenDialog(false)} maxWidth="sm" fullWidth>
           <DialogTitle>{editingItem ? 'Edit Menu Item' : 'Add Menu Item'}</DialogTitle>
           <DialogContent>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 2 }}>
+            <Box component="div" sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 2 }}>
               <FormControl fullWidth>
                 <InputLabel>Day of Week</InputLabel>
                 <Select

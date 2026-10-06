@@ -63,7 +63,7 @@ export default function Students() {
 
   return (
     <DashboardLayout title="Student Management">
-      <Box sx={{ p: 3 }}>
+      <Box component="div" sx={{ p: 3 }}>
         <Card sx={{ mb: 3 }}>
           <CardContent>
             <Typography variant="h5" gutterBottom>
@@ -111,4 +111,4 @@ export default function Students() {
       </Box>
     </DashboardLayout>
   );
-} 
+}
